@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='pointtogrid',
-    version='0.1.0',
+    version='0.2.0',
     description='Grid a large point cloud to a regular UTM grid',
     author='Jonas Sølvsteen',
     author_email='josl@dhigroup.com',
