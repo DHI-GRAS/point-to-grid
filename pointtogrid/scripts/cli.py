@@ -56,21 +56,32 @@ def cli():
 )
 @click.option('--dst-crs', type=CRSType(), help='Target coordinate reference system (epsg code)')
 @click.option(
+    '--decimal-comma', is_flag=True, default=False, show_default=True,
+    help='Decimals separated by comma'
+)
+@click.option(
     '--chunksize', type=click.INT, default=100000, show_default=True,
     help='Process the CSV in chunks of this size'
 )
-def gridme(csvfile, outfile, chunksize, **kwargs):
+def gridme(csvfile, outfile, chunksize, decimal_comma=False, **kwargs):
     """Grid point cloud to UTM grid"""
     from pointtogrid import peskycsv
 
     import rasterio
     from rio_cogeo import cogeo
 
+    # define csv parsing settings
+    csvkw = dict(
+        chunksize=chunksize
+    )
+    if decimal_comma:
+        csvkw.update(
+            decimal=','
+        )
+
     data, profile = peskycsv.flow(
         path=csvfile, show_pbar=True,
-        csvkw=dict(
-            chunksize=chunksize
-        ),
+        csvkw=csvkw,
         **kwargs
     )
 

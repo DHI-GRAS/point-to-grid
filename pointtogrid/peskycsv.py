@@ -6,7 +6,6 @@ from pointtogrid import process
 
 PANDAS_READ_CSV_KW = dict(
     sep=';',
-    decimal=',',
     dtype='float32',
     chunksize=100000
 )
